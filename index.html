@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical STRATA playbook: understand six layers, select Yes, No or Not sure, and generate a self-assessment scorecard and next actions.">
+  <meta name="referrer" content="no-referrer">
+  <title>AI data readiness playbook | STRATA</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <script>
+    // Keep the workshop light by default and honor explicit theme links.
+    document.documentElement.dataset.theme =
+      new URLSearchParams(location.search).get("clawpilotTheme") === "dark" ? "dark" : "light";
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="advising-case.js" defer></script>
+  <script src="assessment.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#understand">Skip to playbook</a>
+  <header class="topbar wrap">
+    <a class="brand" href="#title"><strong>STRATA<span class="brand-dot">.</span></strong></a>
+    <a class="header-link" href="#take-home-title">Save and export <span aria-hidden="true">&nearr;</span></a>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div class="hero-copy">
+        <p class="eyebrow">STRATA / INSTITUTIONAL DATA READINESS</p>
+        <h1 id="title">Your AI data<br>readiness playbook</h1>
+        <p class="intro">Understand STRATA. Choose one use case. Select your answers and leave with six layer scores and a practical action plan.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#understand">Start the playbook <span aria-hidden="true">&rarr;</span></a>
+          <a class="text-button" href="#case-study">View the worked example &nearr;</a>
+        </div>
+        <p class="hero-footnote">No required writing <span>/</span> No sign-in <span>/</span> No answer submission</p>
+      </div>
+      <section id="understand" class="hero-board" aria-labelledby="understand-title" tabindex="-1">
+        <p class="eyebrow">01 / UNDERSTAND</p>
+        <h2 id="understand-title">What does STRATA mean?</h2>
+        <p class="board-intro">Select a layer to see its meaning and assessment link.</p>
+        <div id="hero-layers" class="hero-tiles"></div>
+        <p class="board-note">Six peer layers, not certification steps. A strong layer cannot cancel a critical gap in another.</p>
+        <p class="board-footnote">18 questions. Yes / No / Not sure.<br>Six self-assessment scores, not deployment approval.</p>
+        <a class="board-next" href="#layers">Assess the six layers <span aria-hidden="true">&rarr;</span></a>
+      </section>
+    </section>
+
+    <div class="workshop-strip" aria-label="What you will take away">
+      <p><strong>03</strong> Practical sections</p><span aria-hidden="true">&rarr;</span>
+      <p><strong>06</strong> Separate layer scores</p><span aria-hidden="true">&rarr;</span>
+      <p><strong>01</strong> Prioritized action plan</p>
+    </div>
+    <details class="privacy">
+      <summary>Your answers stay in your browser. Nothing saves automatically. <span>Privacy details</span></summary>
+      <p>No account, analytics, or answer submission. Use role names and non-sensitive evidence descriptions, not student records, patient data, credentials, or confidential links. Device saves and downloaded files are not encrypted by this tool. On GitHub Pages, the hosting provider will still receive normal page requests.</p>
+    </details>
+    <noscript><p class="notice">This interactive worksheet needs JavaScript enabled. No answers are submitted to a server.</p></noscript>
+
+    <nav class="section-nav" aria-label="Playbook sections">
+      <a href="#understand">01 / Understand</a><a href="#layers">02 / Assess</a><a href="#results">03 / Act</a>
+      <span id="progress-text">0 of 18 answered</span>
+    </nav>
+    <progress id="progress" max="18" value="0" aria-label="Questions answered, not a readiness score"></progress>
+    <p id="migration-notice" class="notice" role="status" hidden></p>
+
+    <section id="case-study" class="case-study" aria-labelledby="case-title">
+      <div><p class="eyebrow">OPTIONAL WORKED EXAMPLE / SYNTHETIC DATA</p><h2 id="case-title">See the playbook in action</h2>
+      <p>Enough credits, a pending capstone, overnight records. Compare the risky proposal with a narrower advisor-support pilot that still has gaps.</p></div>
+      <div>
+        <p class="small">Fictional college, dates and records, not real validation. Presets ask before replacing existing work; nothing saves automatically.</p>
+        <div class="case-actions">
+          <button id="example" type="button">Student advising: Before</button>
+          <button id="example-after" type="button">Student advising: After</button>
+          <button id="compare" type="button" aria-expanded="false" aria-controls="comparison">Compare without replacing answers &rarr;</button>
+        </div>
+      </div>
+    </section>
+    <section id="comparison" class="comparison" aria-labelledby="comparison-title" hidden>
+      <div class="comparison-heading"><div><p class="eyebrow">Read-only synthetic comparison</p><h2 id="comparison-title" tabindex="-1">Before / After.<br>Not a readiness pass.</h2></div><button id="close-comparison" type="button">Close comparison</button></div>
+      <p class="notice">This view uses only the two fixed synthetic scenarios. Your current worksheet is not compared, changed or saved. The After case is a proposed bounded pilot for review, not an automatically improved version of your answers.</p>
+      <div id="comparison-content"></div>
+    </section>
+
+    <form id="worksheet" autocomplete="off">
+      <section id="layers" class="section" aria-labelledby="layers-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">02 / ASSESS</p><h2 id="layers-title" tabindex="-1">Select your answers.</h2></div>
+          <p>Think of one use case. Select Yes, No or Not sure for three questions per layer. Every Yes adds one point out of 3. Explore in any order; notes and owner details are optional.</p>
+        </div>
+        <nav id="layer-navigation" class="layer-navigation" aria-label="Choose a STRATA layer"></nav>
+        <p id="worksheet-source" class="record-label">Current worksheet: your assessment. No answers saved automatically.</p>
+        <div class="layer-position"><span id="layer-position" role="status" aria-live="polite">EXPLORING 01 / 06</span><span>Three selectable questions per layer.</span></div>
+        <p class="small muted">Select Yes only when you believe the control is in place for your use case. If you cannot confirm it, choose Not sure. Critical questions not answered Yes stay visible for review. Additional domain-specific controls may be needed.</p>
+        <p id="score-update" class="small" role="status" aria-live="polite"></p>
+        <div id="layer-cards"></div>
+        <div class="layer-controls">
+          <button id="previous-layer" type="button">Previous layer</button>
+          <a class="text-button" href="#results">See my scorecard and missing items</a>
+          <button id="next-layer" class="primary" type="button">Next: Traceable &rarr;</button>
+        </div>
+      </section>
+    </form>
+
+    <section id="results" class="section" aria-labelledby="results-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">03 / ACT</p><h2 id="results-title" tabindex="-1">Your scores.<br>Your next actions.</h2></div>
+        <p>This is a self-assessment of the data supporting your use case, not a certification, compliance opinion, or approval to deploy AI.</p>
+      </div>
+      <aside class="rubric" aria-labelledby="rubric-title">
+        <h3 id="rubric-title">How do these six scores work?</h3>
+        <p>Each layer counts <strong>Yes answers / 3</strong>. Yes earns one point. No, Not sure and Unanswered earn zero, but stay distinct in your results. Notes and owner details are optional and do not change points.</p>
+        <ul><li><strong>Yes:</strong> you believe the control is in place. This is self-reported, not independently verified.</li>
+        <li><strong>No:</strong> a known gap to address.</li>
+        <li><strong>Not sure:</strong> investigate before claiming Yes.</li>
+        <li><strong>Unanswered:</strong> still to review, not the same as No.</li></ul>
+        <p><strong>No blended AI-ready percentage or deployment pass.</strong> A critical question not answered Yes remains unresolved regardless of scores elsewhere. Even 3/3 in every layer needs independent validation, not automatic approval.</p>
+      </aside>
+      <div id="report"></div>
+      <div class="roadmap">
+        <article><p class="eyebrow">Days 01-30</p><h3>Scope and verify</h3><p>Validate the evidence with your owners. Resolve critical unknowns. Narrow the pilot where necessary.</p></article>
+        <article><p class="eyebrow">Days 31-60</p><h3>Strengthen and test</h3><p>Address the priority gaps. Test realistic questions, permissions, stale data, exceptions, and escalation.</p></article>
+        <article><p class="eyebrow">Days 61-90</p><h3>Review and decide</h3><p>Reassess with frontline experts. Decide whether to pilot, improve, redesign, or stop. These are planning horizons, not deadlines to launch.</p></article>
+      </div>
+      <div id="print-evidence" class="print-only"></div>
+    </section>
+
+    <section class="take-home" aria-labelledby="take-home-title">
+      <div><p class="eyebrow">SAVE AND EXPORT</p><h2 id="take-home-title">Take your playbook with you.</h2><p>Print your report or download an editable JSON copy to reopen here later. Review optional notes before sharing. Printing to PDF depends on your browser.</p></div>
+      <div class="save-actions">
+        <button id="print" class="primary" type="button">Print / Save PDF</button>
+        <button id="download" type="button">Download assessment</button>
+        <button id="import" type="button">Open assessment file</button>
+        <input id="file" type="file" accept=".json,application/json" hidden>
+        <button id="save" type="button">Save on this device</button>
+        <button id="load" type="button">Load device save</button>
+        <button id="clear" class="text-button" type="button">Clear answers &amp; device save</button>
+      </div>
+      <p class="small muted">Device saving is optional and uses this browser's local storage. It is not a backup and may be unavailable for local files or private browsing. A new save replaces the previous device save.</p>
+      <p id="message" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+  <footer class="wrap">
+    <p><strong>STRATA</strong> / Sourced. Traceable. Retrievable. Aligned. Timely. Audited.</p>
+    <p>A practical data-readiness playbook. Not an official Microsoft assessment.<br>Start with one valuable question. Build the evidence to support it.</p>
+  </footer>
+</body>
+</html>
